@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+import { AuthenticationService } from './authentication.service'
+
+import { LoginDTO } from './login-dto';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +11,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
 }
