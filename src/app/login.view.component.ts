@@ -6,9 +6,9 @@ import { LoginDTO } from './login-dto'
 
 @Component({
   selector: "login-component",
-  templateUrl: './login.component.html'
+  templateUrl: './login.view.component.html'
 })
-export class LoginComponent {
+export class LoginViewComponent {
   @Input() username: string;
   @Input() password: string;
   loginResult: string;

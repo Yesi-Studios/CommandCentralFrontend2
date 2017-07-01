@@ -1,0 +1,4 @@
+<h2>Home view here</h2>
+
+<news-item *ngFor="let item of newsItems; let i = index" [(newsItem)]="newsItems[i]"></news-item>
+<button (click)="getNewsItems()">Get News</button>

@@ -4,16 +4,19 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { LoginDTO } from './login-dto';
+import { Client } from './client';
 
 @Injectable()
 export class AuthenticationService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' })
-  private baseUrl = 'http://localhost:1113/'
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private baseUrl = 'http://localhost:1113/';
+
+  client: Client;
 
   constructor(private http: Http) { }
 
-  login(username: string, password: string): Promise<LoginDTO> {
+  login(username: string, password: string): Promise<any> {
     return this.http.post(this.baseUrl + 'Login',
       {
         'username': username,
@@ -22,7 +25,10 @@ export class AuthenticationService {
       })
       .toPromise()
       .then(response => {
-        return this.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO})
+        let dto = this.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO;
+        this.client = new Client(dto);
+        return dto;
+      })
       .catch(this.handleError);
   }
 
