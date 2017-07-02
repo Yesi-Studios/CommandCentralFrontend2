@@ -48,8 +48,8 @@ export class AuthenticationService {
     if (typeof theJSON === "string") { theJSON = JSON.parse(theJSON); }
 
     // We declare these up here and have a nested function so that we can keep track of some global things while we recurse.
-    var originals = {};
-    var failures = [];
+    var originals: any = {};
+    var failures: Array<any> = [];
 
     /**
      * Fixes JSON objects that have the $id kind of circular references.
@@ -57,7 +57,7 @@ export class AuthenticationService {
      * @param {Array} oldParents
      * @returns {Object}
      */
-    function fixTheObject(theObject, oldParents) {
+    function fixTheObject(theObject: any, oldParents: Array<any>): any {
       // Base Case: If it's primitive or an empty object, just return it.
       if (typeof theObject !== 'object' || !theObject) { return theObject; }
 
