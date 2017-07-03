@@ -3,30 +3,25 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+import { AuthenticationModule } from './authentication/authentication.module';
+import { NewsModule } from './news/news.module';
 import { AppComponent } from './app.component';
-import { LoginViewComponent } from './login.view.component';
-import { HomeViewComponent } from './home.view.component';
-import { NewsItemComponent } from './news-item.component';
-
-import { AuthenticationService } from './authentication.service';
-import { NewsService } from './news.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginViewComponent,
-    HomeViewComponent,
-    NewsItemComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthenticationModule,
+    NewsModule
   ],
-  providers: [AuthenticationService, NewsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

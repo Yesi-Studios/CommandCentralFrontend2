@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { NewsItemDTO } from './news-item-dto';
 import { NewsItem } from './news-item';
 
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable()
 export class NewsService {
