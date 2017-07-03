@@ -1,23 +1,6 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a routerLink="/login">Login</a></li>
-        <li><a routerLink="/">Home</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li style="color:beige">Version 2.0.0</li>
-      </ul>
-    </div>
+<nav-bar></nav-bar>
+<div class="container-fluid text-center main-view">
+  <div class="row content">
+    <router-outlet></router-outlet>
   </div>
-</nav>
-
-<router-outlet></router-outlet>
+</div>

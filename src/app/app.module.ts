@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthenticationModule } from './authentication/authentication.module';
 import { NewsModule } from './news/news.module';
+import { NavigationModule } from './navigation/navigation.module';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +22,8 @@ import { ConfigService } from './config.service';
     FormsModule,
     AppRoutingModule,
     AuthenticationModule,
-    NewsModule
+    NewsModule,
+    NavigationModule
   ],
   providers: [
     ConfigService,
