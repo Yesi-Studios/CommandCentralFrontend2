@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { AuthenticationModule } from '../authentication/authentication.module';
+import { NavigationModule } from '../navigation/navigation.module';
 
 import { HomeViewComponent } from './home.view.component';
 import { NewsItemComponent } from './news-item.component';
@@ -19,6 +20,7 @@ import { NewsService } from './news.service';
     HttpModule,
     FormsModule,
     CommonModule,
+    NavigationModule,
     AuthenticationModule
   ],
   providers: [NewsService],

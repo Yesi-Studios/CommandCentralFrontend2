@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginViewComponent } from './login.view.component';
 
-import { NavigationModule } from '../navigation/navigation.module';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuard } from './auth-guard';
 
@@ -17,7 +16,6 @@ import { AuthGuard } from './auth-guard';
     HttpModule,
     FormsModule,
     CommonModule,
-    NavigationModule
   ],
   providers: [AuthenticationService, AuthGuard],
   exports: [LoginViewComponent]

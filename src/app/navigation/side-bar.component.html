@@ -1,3 +1,11 @@
-<div class="col-sm-2 sidenav">
-  <p><a href="#">Links go here</a></p>
+<div class="col-sm-2 sidenav list-group">
+    <a
+      *ngFor="let item of items"
+      class="list-group-item list-group-item-info text-left"
+      [routerLink]="[item.url]">
+      {{item.text}}
+      <span class="pull-right">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </span>
+    </a>
 </div>
