@@ -28,10 +28,15 @@ export class AuthenticationService {
       .toPromise()
       .then(response => {
         let dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO;
-        this.client = new Client(dto);
+        this.setClient(dto);
         return dto;
       })
       .catch(this.handleError);
+  }
+
+  setClient(dto: LoginDTO) {
+    this.client = new Client(dto);
+    localStorage.setItem('currentClient', JSON.stringify(dto));
   }
 
   private handleError(error: any): Promise<any> {
