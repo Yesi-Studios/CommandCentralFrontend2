@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import { Utility } from '../utility'
+import { ConfigService } from '../config.service'
 
 import { NewsItemDTO } from './news-item-dto';
 import { NewsItem } from './news-item';
@@ -12,24 +13,37 @@ import { AuthenticationService } from '../authentication/authentication.service'
 @Injectable()
 export class NewsService {
   private headers = new Headers({ 'Content-Type': 'application/json'});
-  private baseUrl = 'http://localhost:1113/';
 
   constructor(
     private http: Http,
+    private configService: ConfigService,
     private authenticationService: AuthenticationService) { }
 
   getAllNews(): Promise<NewsItem[]> {
     let data = {
       'authenticationtoken': this.authenticationService.client.authToken,
-      'apikey': '90fdb89f-282b-4bd6-840b-cef597615728'
+      'apikey': this.configService.config.apiKey
     }
-    return this.http.post(this.baseUrl + 'LoadNewsItems', data)
+    return this.http.post(this.configService.getFullUrl() + 'LoadNewsItems', data)
       .toPromise()
       .then(response => {
         let dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
         let newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
         return newsItems;
       })
+      .catch(this.handleError);
+  }
+
+  createNewsItem(dto: NewsItemDTO): Promise<string> {
+    let data = {
+      'title': dto.Title,
+      'paragraphs': dto.Paragraphs,
+      'authenticationtoken': this.authenticationService.client.authToken,
+      'apikey': this.configService.config.apiKey
+    }
+    return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
+      .toPromise()
+      .then(response => response.json().ReturnValue)
       .catch(this.handleError);
   }
 

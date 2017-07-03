@@ -16,14 +16,14 @@ export class AuthenticationService {
 
   client: Client;
 
-  constructor(private http: Http, private config: ConfigService) { }
+  constructor(private http: Http, private configService: ConfigService) { }
 
   login(username: string, password: string): Promise<any> {
-    return this.http.post(this.config.getFullUrl() + 'Login',
+    return this.http.post(this.configService.getFullUrl() + 'Login',
       {
         'username': username,
         'password': password,
-        'apikey': this.config.config.apiKey
+        'apikey': this.configService.config.apiKey
       })
       .toPromise()
       .then(response => {
@@ -35,9 +35,9 @@ export class AuthenticationService {
   }
 
   logout(): Promise<any> {
-    return this.http.post(this.config.getFullUrl() + 'Logout',
+    return this.http.post(this.configService.getFullUrl() + 'Logout',
     {
-      'apikey': this.config.config.apiKey,
+      'apikey': this.configService.config.apiKey,
       'authenticationtoken': this.client.authToken
     })
     .toPromise()
