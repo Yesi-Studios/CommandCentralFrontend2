@@ -1,0 +1,10 @@
+{
+    "backendUrl": "http://localhost",
+    "backendPort": "1113",
+    "apiKey":  "90fdb89f-282b-4bd6-840b-cef597615728",
+    "debugMode":  true
+}
+
+/**
+Modify this config to suit your setup, and rename it config.json
+**/

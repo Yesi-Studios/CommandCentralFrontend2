@@ -2,6 +2,7 @@ import { Injectable }from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import { Utility } from '../utility'
 
 import { NewsItemDTO } from './news-item-dto';
 import { NewsItem } from './news-item';
@@ -25,7 +26,7 @@ export class NewsService {
     return this.http.post(this.baseUrl + 'LoadNewsItems', data)
       .toPromise()
       .then(response => {
-        let dto = this.authenticationService.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
+        let dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
         let newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
         return newsItems;
       })

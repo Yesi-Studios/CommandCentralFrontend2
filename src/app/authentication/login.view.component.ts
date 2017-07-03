@@ -27,4 +27,9 @@ export class LoginViewComponent {
     console.log(dto);
     this.loginResult = dto["PersonId"];
   }
+
+  userIsLoggedIn(): boolean {
+    let client = this.authenticationService.client
+    return client && client.loggedIn;
+  }
 }
