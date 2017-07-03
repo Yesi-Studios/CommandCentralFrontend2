@@ -12,6 +12,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ConfigService } from './config.service';
 
+export function configFactory (config: ConfigService) {
+  return () => config.load();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,7 @@ import { ConfigService } from './config.service';
     ConfigService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (config: ConfigService) => () => config.load(),
+      useFactory: configFactory,
       deps: [ConfigService],
       multi: true
     }

@@ -1,2 +1,10 @@
-<h3>News here</h3>
-<h4>{{newsItem.title}}</h4>
+<div class="panel panel-primary text-left">
+  <div class="panel-heading">
+    {{newsItem.title}}
+  </div>
+  <div class="panel-body">
+    <p *ngFor="let paragraph of newsItem.paragraphs">
+      {{paragraph}}
+    </p>
+  </div>
+</div>
