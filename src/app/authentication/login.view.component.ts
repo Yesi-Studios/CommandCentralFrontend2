@@ -30,6 +30,13 @@ export class LoginViewComponent {
     .catch(response => this.errorMessages = this.handleErrors(response.json()));
   }
 
+  logout(): void {
+    this.errorMessages = [];
+    this.authenticationService
+    .logout()
+    .catch(response => this.errorMessages = this.handleErrors(response.json()));
+  }
+
   enterKeyCheck(event: any): void {
     if(event.key === "Enter") {
       this.login();

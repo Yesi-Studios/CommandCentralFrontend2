@@ -13,10 +13,11 @@
           <label for="password">Password</label>
           <input [(ngModel)]="password" (keyup)="enterKeyCheck($event)" type="password" id="username" class="form-control" />
         </div>
-        <button (click)="login()" [disabled]="readyToLogin()" class="btn btn-default">Login</button>
+        <button (click)="login()" [disabled]="readyToLogin()" class="btn btn-primary">Log In</button>
       </div>
       <ng-template #loggedIn>
         <h3>You are logged in.</h3>
+        <button (click)="logout()" class="btn btn-primary">Log Out</button>
       </ng-template>
     </div>
   </div>

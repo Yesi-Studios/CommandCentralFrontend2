@@ -34,9 +34,26 @@ export class AuthenticationService {
       .catch(this.handleError);
   }
 
+  logout(): Promise<any> {
+    return this.http.post(this.config.getFullUrl() + 'Logout',
+    {
+      'apikey': this.config.config.apiKey,
+      'authenticationtoken': this.client.authToken
+    })
+    .toPromise()
+    .then(response => {
+      this.deleteClient();
+    })
+  }
+
   setClient(dto: LoginDTO) {
     this.client = new Client(dto);
     localStorage.setItem('currentClient', JSON.stringify(dto));
+  }
+
+  deleteClient() {
+    this.client = null;
+    localStorage.removeItem('currentClient');
   }
 
   private handleError(error: any): Promise<any> {
