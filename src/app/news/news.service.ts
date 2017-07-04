@@ -1,4 +1,5 @@
-import { Injectable }from '@angular/core';
+import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
@@ -17,25 +18,26 @@ export class NewsService {
   constructor(
     private http: Http,
     private configService: ConfigService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private router: Router) { }
 
   getAllNews(): Promise<NewsItem[]> {
-    let data = {
+    const data = {
       'authenticationtoken': this.authenticationService.client.authToken,
       'apikey': this.configService.config.apiKey
     }
     return this.http.post(this.configService.getFullUrl() + 'LoadNewsItems', data)
       .toPromise()
       .then(response => {
-        let dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
-        let newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
+        const dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
+        const newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
         return newsItems;
       })
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   createNewsItem(dto: NewsItemDTO): Promise<string> {
-    let data = {
+    const data = {
       'title': dto.Title,
       'paragraphs': dto.Paragraphs,
       'authenticationtoken': this.authenticationService.client.authToken,
@@ -44,11 +46,15 @@ export class NewsService {
     return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
       .toPromise()
       .then(response => response.json().ReturnValue)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error));
   }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    if (error.statusText === 'Forbidden') {
+      this.authenticationService.deleteClient();
+      this.router.navigate(['/login']);
+    }
+    return Promise.reject(error);
   }
 }

@@ -27,7 +27,7 @@ export class AuthenticationService {
       })
       .toPromise()
       .then(response => {
-        let dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO;
+        const dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO;
         this.setClient(dto);
         return dto;
       })

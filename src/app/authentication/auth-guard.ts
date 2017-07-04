@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
 
@@ -9,13 +9,20 @@ export class AuthGuard implements CanActivate {
     private authenticationService: AuthenticationService,
     private router: Router) { }
 
-  canActivate() {
-    let client = this.authenticationService.client;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const client = this.authenticationService.client;
+    const permissionsDictionary = {
+      'news/create' : 'Developers',
+    }
     if (client && client.loggedIn) {
       return true;
     } else {
       this.router.navigate(['/login']);
     }
     return false;
+  }
+
+  userHasPermissionsToAccess(route: ActivatedRouteSnapshot): boolean {
+    return true;
   }
 }
