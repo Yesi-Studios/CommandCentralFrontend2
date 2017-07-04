@@ -11,12 +11,12 @@ import { Config } from './config';
 export class ConfigService {
 
   config: Config = {
-    backendUrl: "http://localhost",
-    backendPort: "1113",
+    backendUrl: 'http://localhost',
+    backendPort: '1113',
     apiKey:  '90fdb89f-282b-4bd6-840b-cef597615728',
     debugMode:  true
   };
-  configLoaded: boolean = false;
+  configLoaded = false;
 
   constructor(private http: Http) { }
 
@@ -26,8 +26,12 @@ export class ConfigService {
       .then(response => {
         this.config = response.json() as Config;
         this.configLoaded = true;
-        console.log("config loaded");
+        console.log('config loaded');
       })
+      .catch(response => {
+        console.log('"config.json" not found. Using the following values:');
+        console.log(this.config);
+      });
   }
 
   getFullUrl(): string {

@@ -10,12 +10,13 @@ import { LoginDTO } from './authentication/login-dto';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService) { }
   title = 'app';
 
+  constructor(private authService: AuthenticationService) { }
+
   ngOnInit() {
-    let dto = JSON.parse(localStorage.getItem('currentClient')) as LoginDTO;
-    if(dto) {
+    const dto = JSON.parse(localStorage.getItem('currentClient')) as LoginDTO;
+    if (dto) {
       this.authService.setClient(dto);
     }
   }
