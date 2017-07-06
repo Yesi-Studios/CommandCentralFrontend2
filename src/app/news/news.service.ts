@@ -1,3 +1,4 @@
+import { ErrorService } from './../error.service';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
@@ -19,7 +20,8 @@ export class NewsService {
     private http: Http,
     private configService: ConfigService,
     private authenticationService: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private errorService: ErrorService) { }
 
   getAllNews(): Promise<NewsItem[]> {
     const data = {
@@ -33,7 +35,7 @@ export class NewsService {
         const newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
         return newsItems;
       })
-      .catch(error => this.handleError(error));
+      .catch(error => this.errorService.handleError(error));
   }
 
   createNewsItem(dto: NewsItemDTO): Promise<string> {
@@ -46,15 +48,7 @@ export class NewsService {
     return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
       .toPromise()
       .then(response => response.json().ReturnValue)
-      .catch(error => this.handleError(error));
+      .catch(error => this.errorService.handleError(error));
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    if (error.statusText === 'Forbidden') {
-      this.authenticationService.deleteClient();
-      this.router.navigate(['/login']);
-    }
-    return Promise.reject(error);
-  }
 }

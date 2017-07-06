@@ -1,3 +1,4 @@
+import { ErrorService } from './../error.service';
 
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
@@ -20,7 +21,8 @@ export class NewsCreateComponent {
 
   constructor(
     private newsService: NewsService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorService
     ) { }
 
   createNews(): void {
@@ -29,8 +31,16 @@ export class NewsCreateComponent {
       Paragraphs: this.itemText.match(/[^\r\n]+/g)
     } as NewsItemDTO;
     this.newsService.createNewsItem(dto)
-    .then(() => this.router.navigate(['/news']))
-    .catch(response => this.errorMessages = this.handleErrors(response.json()))
+    .then(response => {
+      console.log('wtfffffff');
+      console.log(response);
+      this.router.navigate(['/news'])
+    })
+    .catch(errs => {
+      console.log('why not deeper');
+      console.log(errs);
+    this.errorMessages = this.errorMessages.concat(errs)
+    });
   }
 
   handleErrors(res: any): Array<string> {

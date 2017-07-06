@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core'
+import { ErrorService } from './../error.service';
+import { Component, Input, AfterContentInit} from '@angular/core'
 
 import { AuthenticationService } from './authentication.service';
-import { Router } from  '@angular/router';
+import { Router } from '@angular/router';
 
 import { LoginDTO } from './login-dto'
 import { Utility } from '../utility';
@@ -11,7 +12,7 @@ import { ErrorResponse } from '../error-response';
   selector: 'login-component',
   templateUrl: './login.view.component.html'
 })
-export class LoginViewComponent {
+export class LoginViewComponent implements AfterContentInit {
   @Input() username: string;
   @Input() password: string;
   loginResult: string;
@@ -19,8 +20,15 @@ export class LoginViewComponent {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorService
   ) {}
+
+  ngAfterContentInit() {
+    const newErrors = this.errorService.popAllErrors();
+
+    this.errorMessages = this.errorMessages.concat(newErrors);
+  }
 
   login(): void {
     this.errorMessages = [];
