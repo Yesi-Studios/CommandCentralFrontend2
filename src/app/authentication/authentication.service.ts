@@ -44,6 +44,10 @@ export class AuthenticationService {
     .then(response => {
       this.deleteClient();
     })
+    .catch(error => {
+      this.deleteClient();
+      return this.handleError(error);
+    })
   }
 
   setClient(dto: LoginDTO) {

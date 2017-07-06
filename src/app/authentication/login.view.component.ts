@@ -8,7 +8,7 @@ import { Utility } from '../utility';
 import { ErrorResponse } from '../error-response';
 
 @Component({
-  selector: "login-component",
+  selector: 'login-component',
   templateUrl: './login.view.component.html'
 })
 export class LoginViewComponent {
@@ -38,7 +38,7 @@ export class LoginViewComponent {
   }
 
   enterKeyCheck(event: any): void {
-    if(event.key === "Enter") {
+    if (event.key === 'Enter') {
       this.login();
     }
   }
@@ -52,16 +52,16 @@ export class LoginViewComponent {
   }
 
   handleErrors(res: any): Array<string> {
-    let response = Utility.restoreJsonNetReferences(res) as ErrorResponse;
-    let errorMessages: string[] = [];
-    for (let errorMessage of response.ErrorMessages) {
+    const response = Utility.restoreJsonNetReferences(res) as ErrorResponse;
+    const errorMessages: string[] = [];
+    for (const errorMessage of response.ErrorMessages) {
       errorMessages.push(errorMessage);
     }
     return errorMessages;
   }
 
   userIsLoggedIn(): boolean {
-    let client = this.authenticationService.client
+    const client = this.authenticationService.client
     return client && client.loggedIn;
   }
 }

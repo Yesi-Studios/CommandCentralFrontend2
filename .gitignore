@@ -2,6 +2,7 @@
 
 # custom things for this project
 /src/config.json
+/.vscode
 
 # compiled output
 /dist

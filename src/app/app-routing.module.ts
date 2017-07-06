@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'news', pathMatch: 'full'},
   { path: 'news', component: NewsViewComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', component: NewsComponent },
-      { path: 'create', component: NewsCreateComponent }
+      { path: '', component: NewsComponent, canActivate: [AuthGuard] },
+      { path: 'create', component: NewsCreateComponent, canActivate: [AuthGuard]}
     ]
   }
 ]
@@ -28,4 +28,4 @@ const routes: Routes = [
   ],
   exports: [ RouterModule ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
