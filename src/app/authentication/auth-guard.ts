@@ -7,6 +7,7 @@ import { AuthenticationService } from './authentication.service';
 export class AuthGuard implements CanActivate {
   restrictedPaths: { [path: string]: string[] } = {
     '/news/create': ['Developers'],
+    '/news/edit': ['Developers']
   }
 
   constructor(

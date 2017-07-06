@@ -1,6 +1,4 @@
-import { ErrorsComponent } from './errors.component';
 import { AuthenticationService } from './authentication/authentication.service';
-import { ErrorService } from './error.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -8,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthenticationModule } from './authentication/authentication.module';
 import { NewsModule } from './news/news.module';
+import { ErrorsModule } from './errors/errors.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { AppComponent } from './app.component';
 
@@ -22,7 +21,6 @@ export function configFactory (config: ConfigService) {
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +32,6 @@ export function configFactory (config: ConfigService) {
     NavigationModule
   ],
   providers: [
-    ErrorService,
     ConfigService,
     {
       provide: APP_INITIALIZER,

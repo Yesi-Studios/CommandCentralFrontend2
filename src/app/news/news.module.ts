@@ -1,3 +1,5 @@
+import { NewsEditComponent } from './news-edit.component';
+import { ErrorsModule } from './../errors/errors.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
@@ -19,6 +21,7 @@ import { NewsService } from './news.service';
     NewsViewComponent,
     NewsComponent,
     NewsCreateComponent,
+    NewsEditComponent,
     NewsItemComponent
   ],
   imports: [
@@ -27,6 +30,7 @@ import { NewsService } from './news.service';
     CommonModule,
     RouterModule,
     NavigationModule,
+    ErrorsModule,
     AuthenticationModule
   ],
   providers: [NewsService],

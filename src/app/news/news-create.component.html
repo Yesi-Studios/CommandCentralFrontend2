@@ -1,7 +1,6 @@
 <div class="col-sm-8">
   <div class="row">
-    <errors-list [(errors)]="errorMessages">
-    </errors-list>
+    <errors-list [(errors)]="errorMessages"></errors-list>
     <h3>Create news</h3>
     <form #formCtrl="ngForm" role="form" class="form-horizontal">
       <div class="form-group">
@@ -21,7 +20,7 @@
           rows="10"
           required></textarea>
       </div>
-      <button (click)="createNews()" [disabled]="formCtrl.form.valid" class="btn btn-primary">Create News Item</button>
+      <button (click)="createNews()" [disabled]="!formCtrl.form.valid" class="btn btn-primary">Create News Item</button>
      </form>
   </div>
 </div>

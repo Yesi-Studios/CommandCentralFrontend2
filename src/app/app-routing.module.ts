@@ -1,3 +1,4 @@
+import { NewsEditComponent } from './news/news-edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'news', component: NewsViewComponent, canActivate: [AuthGuard],
     children: [
       { path: '', component: NewsComponent, canActivate: [AuthGuard] },
-      { path: 'create', component: NewsCreateComponent, canActivate: [AuthGuard]}
+      { path: 'create', component: NewsCreateComponent, canActivate: [AuthGuard]},
+      { path: 'edit/:id', component: NewsEditComponent, canActivate: [AuthGuard]}
     ]
   }
 ]

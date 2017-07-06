@@ -1,6 +1,6 @@
-import { Utility } from './utility';
+import { Utility } from '../utility';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { ErrorResponse } from './error-response';
 import { Injectable } from '@angular/core';
 

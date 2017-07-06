@@ -11,6 +11,7 @@ import { NewsService } from './news.service'
 })
 export class NewsComponent implements OnInit {
   newsItems: NewsItem[];
+  errorMessages: string[];
 
   constructor(
     private newsService: NewsService,
@@ -20,15 +21,11 @@ export class NewsComponent implements OnInit {
   getNewsItems(): void {
     this.newsService.getAllNews()
     .then(items => this.newsItems = items)
-    .catch(this.handleError);
+    .catch(errs => this.errorMessages = this.errorMessages.concat(errs));
   }
 
   ngOnInit() {
     this.getNewsItems();
-  }
-
-  handleError(error) {
-    console.log(error);
   }
 
 }

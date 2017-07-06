@@ -1,6 +1,7 @@
 <div class="panel panel-primary text-left">
   <div class="panel-heading">
     {{newsItem.title}}
+    <a *ngIf="canEditNews" [routerLink]='["/news/edit/" + newsItem.id]'>edit</a>
   </div>
   <div class="panel-body">
     <p *ngFor="let paragraph of newsItem.paragraphs">
