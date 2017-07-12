@@ -25,8 +25,6 @@ export class NewsService {
 
   getAllNews(): Promise<NewsItem[]> {
     const data = {
-      'authenticationtoken': this.authenticationService.client.authToken,
-      'apikey': this.configService.config.apiKey
     }
     return this.http.post(this.configService.getFullUrl() + 'LoadNewsItems', data)
       .toPromise()
@@ -40,8 +38,6 @@ export class NewsService {
 
   getNewsItem(id: string): Promise<NewsItem> {
     const data = {
-      'authenticationtoken': this.authenticationService.client.authToken,
-      'apikey': this.configService.config.apiKey,
       'newsitemid': id
     }
     return this.http.post(this.configService.getFullUrl() + 'LoadNewsItem', data)
@@ -55,8 +51,6 @@ export class NewsService {
 
   updateNewsItem(dto: NewsItemDTO) {
     const data = {
-      'authenticationtoken': this.authenticationService.client.authToken,
-      'apikey': this.configService.config.apiKey,
       'newsitemid': dto.Id,
       'paragraphs': dto.Paragraphs,
       'title': dto.Title
@@ -71,8 +65,6 @@ export class NewsService {
     const data = {
       'title': dto.Title,
       'paragraphs': dto.Paragraphs,
-      'authenticationtoken': this.authenticationService.client.authToken,
-      'apikey': this.configService.config.apiKey
     };
     return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
       .toPromise()

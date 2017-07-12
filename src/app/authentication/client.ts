@@ -1,19 +1,8 @@
-import { LoginDTO } from './login-dto';
 export class Client {
   profilePopulated: boolean;
-
-  authToken: string;
+  sessionId: string;
   friendlyName: string;
   id: string;
-  loggedIn: boolean;
-
+  loggedIn = false;
   resolvedPermissions: any;
-
-  constructor( dto: LoginDTO ) {
-    this.authToken = dto.AuthenticationToken;
-    this.friendlyName = dto.FriendlyName;
-    this.id = dto.PersonId;
-    this.resolvedPermissions = dto.ResolvedPermissions;
-    this.loggedIn = true;
-  }
 }
