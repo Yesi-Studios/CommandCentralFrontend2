@@ -22,7 +22,7 @@ export class ConfigService {
   constructor(private http: Http) { }
 
   load() {
-    this.http.get('config.json')
+    this.http.get('assets/config.json')
       .toPromise()
       .then(response => {
         this.config = response.json() as Config;

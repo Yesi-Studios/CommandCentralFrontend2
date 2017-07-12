@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
 
 import { Utility } from '../utility';
 import { ConfigService } from '../config.service';
@@ -12,11 +11,12 @@ import { Client } from './client';
 @Injectable()
 export class AuthenticationService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-
+  headers = new Headers({ 'Content-Type': 'application/json' });
   client: Client;
 
-  constructor(private http: Http, private configService: ConfigService) { }
+  constructor(private http: Http, private configService: ConfigService) {
+    // this.headers.append('apikey', this.configService.config.apiKey);
+  }
 
   login(username: string, password: string): Promise<any> {
     return this.http.post(this.configService.getFullUrl() + 'Login',
@@ -24,7 +24,7 @@ export class AuthenticationService {
         'username': username,
         'password': password,
         'apikey': this.configService.config.apiKey
-      })
+      }, { headers: this.headers })
       .toPromise()
       .then(response => {
         const dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as LoginDTO;
@@ -52,11 +52,13 @@ export class AuthenticationService {
 
   setClient(dto: LoginDTO) {
     this.client = new Client(dto);
+    // this.headers.append('sessionid', this.client.authToken);
     localStorage.setItem('currentClient', JSON.stringify(dto));
   }
 
   deleteClient() {
     this.client = null;
+    // this.headers.delete('sessionid');
     localStorage.removeItem('currentClient');
   }
 

@@ -73,7 +73,7 @@ export class NewsService {
       'paragraphs': dto.Paragraphs,
       'authenticationtoken': this.authenticationService.client.authToken,
       'apikey': this.configService.config.apiKey
-    }
+    };
     return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
       .toPromise()
       .then(response => response.json().ReturnValue)
