@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Promise<any> {
-    return this.http.post(this.configService.getFullUrl() + 'api/authenticate',
+    return this.http.post(this.configService.getFullUrl() + 'api/authentication/login',
       {
         'username': username,
         'password': password

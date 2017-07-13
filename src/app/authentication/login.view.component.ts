@@ -4,7 +4,6 @@ import { Component, Input, AfterContentInit} from '@angular/core'
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
 
-import { LoginDTO } from './login-dto'
 import { Utility } from '../utility';
 import { ErrorResponse } from '../errors/error-response';
 
