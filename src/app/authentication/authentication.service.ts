@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Promise<any> {
-    return this.http.post(this.configService.getFullUrl() + 'api/authentication/login',
+    return this.http.post(this.configService.getFullUrl() + 'api/authenticate',
       {
         'username': username,
         'password': password
@@ -26,6 +26,13 @@ export class AuthenticationService {
       .toPromise()
       .then(response => {
         this.modifyClient({sessionId : response.headers.get('sessionid')});
+        this.http.get(this.configService.getFullUrl() + 'api/permissions/1', this.headers)
+        .toPromise()
+        .then(res => {
+          this.modifyClient({loggedIn: true});
+          console.log(res);
+        })
+
       })
       .catch(this.handleError);
   }
@@ -51,11 +58,7 @@ export class AuthenticationService {
   }
 
   modifyClient(mods: any) {
-    for (const key in mods) {
-      if (mods.hasOwnProperty(key) && this.client.hasOwnProperty(key)) {
-        this.client[key] = mods[key];
-      }
-    }
+    Object.keys(mods).forEach(k => this.client[k] = mods[k]);
     this.saveClient();
   }
 
