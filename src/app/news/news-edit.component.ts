@@ -24,7 +24,7 @@ export class NewsEditComponent implements OnInit {
     this.newsService.getNewsItem(id)
       .then(item => {
         this.itemTitle = item.title;
-        this.itemText = item.paragraphs.join('\n');
+        this.itemText = item.body;
         this.itemId = item.id;
       })
       .catch(errs => this.errorMessages = this.errorMessages.concat(errs));
@@ -33,9 +33,9 @@ export class NewsEditComponent implements OnInit {
   updateNews() {
     this.errorMessages = [];
     const dto = {
-      Title: this.itemTitle,
-      Paragraphs: this.itemText.match(/[^\r\n]+/g),
-      Id: this.itemId
+      title: this.itemTitle,
+      body: this.itemText,
+      id: this.itemId
     } as NewsItemDTO;
     this.newsService.updateNewsItem(dto)
       .then(response => this.router.navigate(['/news']))

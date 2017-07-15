@@ -24,12 +24,11 @@ export class NewsService {
     private errorService: ErrorService) { }
 
   getAllNews(): Promise<NewsItem[]> {
-    const data = {
-    }
-    return this.http.post(this.configService.getFullUrl() + 'LoadNewsItems', data)
+    console.log(this.authenticationService.getHeaders());
+    return this.http.get(this.configService.getFullUrl() + 'api/newsitem', { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
-        const dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO[];
+        const dto = response.json() as NewsItemDTO[];
         const newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
         return newsItems;
       })
@@ -40,10 +39,10 @@ export class NewsService {
     const data = {
       'newsitemid': id
     }
-    return this.http.post(this.configService.getFullUrl() + 'LoadNewsItem', data)
+    return this.http.get(this.configService.getFullUrl() + 'api/newsitem/' + id, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
-        const dto = Utility.restoreJsonNetReferences(response.json().ReturnValue) as NewsItemDTO;
+        const dto = response.json() as NewsItemDTO;
         return new NewsItem(dto);
       })
       .catch(error => this.errorService.handleError(error));
@@ -51,11 +50,10 @@ export class NewsService {
 
   updateNewsItem(dto: NewsItemDTO) {
     const data = {
-      'newsitemid': dto.Id,
-      'paragraphs': dto.Paragraphs,
-      'title': dto.Title
+      'body': dto.body,
+      'title': dto.title
     }
-    return this.http.post(this.configService.getFullUrl() + 'UpdateNewsItem', data)
+    return this.http.patch(this.configService.getFullUrl() + 'api/newsitem/' + dto.id, data, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => response.json().ReturnValue)
       .catch(error => this.errorService.handleError(error));
@@ -63,10 +61,10 @@ export class NewsService {
 
   createNewsItem(dto: NewsItemDTO): Promise<any> {
     const data = {
-      'title': dto.Title,
-      'paragraphs': dto.Paragraphs,
+      'title': dto.title,
+      'body': dto.body,
     };
-    return this.http.post(this.configService.getFullUrl() + 'CreateNewsItem', data)
+    return this.http.post(this.configService.getFullUrl() + 'api/newsitem', data, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => response.json().ReturnValue)
       .catch(error => this.errorService.handleError(error));

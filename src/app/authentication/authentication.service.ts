@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ResolvedPermissionsDTO } from './resolved-permissions-dto';
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
@@ -17,8 +19,19 @@ export class AuthenticationService {
     this.headers.append('apikey', this.configService.config.apiKey);
   }
 
+  getHeaders(): Headers {
+    const headers: Headers = new Headers({
+        'Content-Type': 'application/json',
+        'apikey': this.configService.config.apiKey
+      });
+    if (this.client.loggedIn) {
+      headers.append('sessionid', this.client.sessionId);
+    }
+    return headers;
+  }
+
   login(username: string, password: string): Promise<any> {
-    return this.http.post(this.configService.getFullUrl() + 'api/authenticate',
+    return this.http.post(this.configService.getFullUrl() + 'api/authentication',
       {
         'username': username,
         'password': password
@@ -26,11 +39,13 @@ export class AuthenticationService {
       .toPromise()
       .then(response => {
         this.modifyClient({sessionId : response.headers.get('sessionid')});
-        this.http.get(this.configService.getFullUrl() + 'api/permissions/1', this.headers)
+        this.headers.set('Access-Control-Expose-Headers', ['sessionid']);
+        this.headers.set('sessionid', this.client.sessionId);
+        this.http.get(this.configService.getFullUrl() + 'api/authorization/', { headers: this.headers })
         .toPromise()
         .then(res => {
-          this.modifyClient({loggedIn: true});
-          console.log(res);
+          console.log(res.json());
+          this.modifyClient({loggedIn: true, resolvedPermissions: res.json() as ResolvedPermissionsDTO});
         })
 
       })
@@ -38,7 +53,7 @@ export class AuthenticationService {
   }
 
   logout(): Promise<any> {
-    return this.http.delete(this.configService.getFullUrl() + 'api/authenticate',
+    return this.http.delete(this.configService.getFullUrl() + 'api/authentication',
      {headers: this.headers })
     .toPromise()
     .then(response => {
@@ -52,9 +67,10 @@ export class AuthenticationService {
 
   saveClient() {
     localStorage.setItem('currentClient', JSON.stringify(this.client));
-    if (this.client.sessionId) {
-      this.headers.append('sessionid', this.client.sessionId);
-    }
+    // if (this.client.sessionId) {
+      // this.headers.delete('sessionid');
+      // this.headers.append('sessionid', this.client.sessionId);
+    // }
   }
 
   modifyClient(mods: any) {

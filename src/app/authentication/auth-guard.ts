@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
   }
 
   userHasPermissionsToAccess(url: string): boolean {
-    const permGroups = this.authenticationService.client.resolvedPermissions.PermissionGroupNames as Array<string>;
+    const permGroups = this.authenticationService.client.resolvedPermissions.permissionGroupNames as Array<string>;
     const requiredPerms = this.restrictedPaths[url];
     if (requiredPerms) {
       const permsComp = requiredPerms.filter(item => permGroups.indexOf(item) !== -1)

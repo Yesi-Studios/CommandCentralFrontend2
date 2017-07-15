@@ -28,8 +28,8 @@ export class NewsCreateComponent {
   createNews(): void {
     this.errorMessages = [];
     const dto = {
-      Title: this.itemTitle,
-      Paragraphs: this.itemText.match(/[^\r\n]+/g)
+      title: this.itemTitle,
+      body: this.itemText
     } as NewsItemDTO;
     this.newsService.createNewsItem(dto)
       .then(response => this.router.navigate(['/news']))

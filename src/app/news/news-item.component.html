@@ -4,8 +4,8 @@
     <a *ngIf="canEditNews" [routerLink]='["/news/edit/" + newsItem.id]'>edit</a>
   </div>
   <div class="panel-body">
-    <p *ngFor="let paragraph of newsItem.paragraphs">
-      {{paragraph}}
+    <p>
+      {{newsItem.body}}
     </p>
   </div>
 </div>

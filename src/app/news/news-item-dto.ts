@@ -1,7 +1,7 @@
 export class NewsItemDTO {
-  Id: string;
-  Title: string;
-  Paragraphs: string[];
-  CreationTime: string;
-  Creator: any;
+  id: string;
+  title: string;
+  body: string;
+  creationTime: string;
+  creator: any;
 }
