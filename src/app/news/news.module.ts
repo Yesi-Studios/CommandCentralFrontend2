@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { NavigationModule } from '../navigation/navigation.module';
@@ -31,7 +32,8 @@ import { NewsService } from './news.service';
     RouterModule,
     NavigationModule,
     ErrorsModule,
-    AuthenticationModule
+    AuthenticationModule,
+    CKEditorModule
   ],
   providers: [NewsService],
   exports: [NewsViewComponent, NewsItemComponent]

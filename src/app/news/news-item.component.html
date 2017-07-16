@@ -3,9 +3,6 @@
     {{newsItem.title}}
     <a *ngIf="canEditNews" [routerLink]='["/news/edit/" + newsItem.id]'>edit</a>
   </div>
-  <div class="panel-body">
-    <p>
-      {{newsItem.body}}
-    </p>
+  <div [innerHtml]="newsItem.body" class="panel-body">
   </div>
 </div>
