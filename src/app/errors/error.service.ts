@@ -1,7 +1,5 @@
-import { Utility } from '../utility';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { ErrorResponse } from './error-response';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -26,8 +24,14 @@ export class ErrorService {
 
   handleError(error: any): Promise<string[]> {
     console.error('An error occurred', error);
-    const errors = Utility.restoreJsonNetReferences(error.json().ErrorMessages);
-    if (error.statusText === 'Forbidden') {
+    if (error.status === 0) {
+      this.addError('The service appears to be down. Please contact the developers.');
+      this.authenticationService.deleteClient();
+      this.router.navigate(['/login']);
+      return Promise.reject('The service appears to be down. Please contact the developers.');
+    }
+    const errors = error.json().ErrorMessages;
+    if (error && error.statusText === 'Forbidden') {
       this.addErrors(errors);
       this.authenticationService.deleteClient();
       this.router.navigate(['/login']);
