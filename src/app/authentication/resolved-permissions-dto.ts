@@ -8,12 +8,12 @@ export class ResolvedPermissionsDTO {
     Main: string;
     Muster: string;
     QuartdeckWatchbill: string;
-  }
+  };
   isInChainOfCommand: {
     Main: boolean;
     Muster: boolean;
     QuartdeckWatchbill: boolean;
-  }
+  };
   isSelf: boolean;
   permissionGroupNames: Array<string>;
   personId: string;

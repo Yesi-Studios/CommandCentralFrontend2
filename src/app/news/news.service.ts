@@ -29,8 +29,7 @@ export class NewsService {
       .toPromise()
       .then(response => {
         const dto = response.json() as NewsItemDTO[];
-        const newsItems: NewsItem[] = dto.map(d => new NewsItem(d));
-        return newsItems;
+        return dto.map(d => new NewsItem(d));
       })
       .catch(error => this.errorService.handleError(error));
   }
@@ -38,7 +37,7 @@ export class NewsService {
   getNewsItem(id: string): Promise<NewsItem> {
     const data = {
       'newsitemid': id
-    }
+    };
     return this.http.get(this.configService.getFullUrl() + 'api/newsitem/' + id, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
@@ -52,8 +51,9 @@ export class NewsService {
     const data = {
       'body': dto.body,
       'title': dto.title
-    }
-    return this.http.patch(this.configService.getFullUrl() + 'api/newsitem/' + dto.id, data, { headers: this.authenticationService.getHeaders() })
+    };
+    return this.http.patch(this.configService.getFullUrl() + 'api/newsitem/' + dto.id, data,
+      { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => response.json().ReturnValue)
       .catch(error => this.errorService.handleError(error));

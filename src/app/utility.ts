@@ -10,8 +10,8 @@ export class Utility {
     if (typeof theJSON === "string") { theJSON = JSON.parse(theJSON); }
 
     // We declare these up here and have a nested function so that we can keep track of some global things while we recurse.
-    var originals: any = {};
-    var failures: Array<any> = [];
+    const originals: any = {};
+    const failures: Array<any> = [];
 
     /**
      * Fixes JSON objects that have the $id kind of circular references.
@@ -26,19 +26,19 @@ export class Utility {
       // Create a new copy of the array we were passed. This is because it's (obviously) passed by reference, and we don't want to modify the
       // Parents array of the previous level, as we may be iterating over an array somewhere down the recursion chain, and don't want one array
       // item's parents to affect another.
-      var theParents = oldParents.slice();
+      const theParents = oldParents.slice();
 
       // If it is an array, it will be represented as an object with a "$values" property containing the array, and an "$id".
       // If it's an array...
       if (theObject.hasOwnProperty("$values")) {
 
         // ...create an array of corrected values, and use that.
-        var newArray = [];
+        const newArray = [];
 
         // Add this object/array to the Parents before we iterate over its values.
         theParents.push(theObject["$id"]);
 
-        for (var j in theObject["$values"]) {
+        for (let j in theObject["$values"]) {
           newArray.push(fixTheObject(theObject["$values"][j], theParents));
         }
 
@@ -55,12 +55,12 @@ export class Utility {
       // function, but it looks weird and feels wrong, soo nanny-nanny poo-poo, I'm not doing it.
       if ("$id" in theObject) {
         // Save the id before we delete it from the object so we can use it as a key in the originals array.
-        var id = theObject["$id"];
+        const id = theObject['$id'];
         delete theObject["$id"];
         theParents.push(id);
 
         // Fix all the properties of the object recursively
-        for (var k in theObject) {
+        for (let k in theObject) {
           theObject[k] = fixTheObject(theObject[k], theParents);
         }
 
@@ -87,7 +87,7 @@ export class Utility {
 
       // If we get here, this object is untouched by JSON.net. Just to be sure, we'll check all its properties, but really we just
       // need to return the object.
-      for (var i in theObject) {
+      for (let i in theObject) {
         theObject[i] = fixTheObject(theObject[i], theParents);
       }
       return theObject;

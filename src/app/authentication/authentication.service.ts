@@ -1,10 +1,8 @@
-import { Router } from '@angular/router';
 import { ResolvedPermissionsDTO } from './resolved-permissions-dto';
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 
-import { Utility } from '../utility';
 import { ConfigService } from '../config.service';
 
 import { Client } from './client';
@@ -16,16 +14,16 @@ export class AuthenticationService {
   client: Client = new Client();
 
   constructor(private http: Http, private configService: ConfigService) {
-    this.headers.append('apikey', this.configService.config.apiKey);
+    this.headers.append('x-api-key', this.configService.config.apiKey);
   }
 
   getHeaders(): Headers {
     const headers: Headers = new Headers({
         'Content-Type': 'application/json',
-        'apikey': this.configService.config.apiKey
+        'x-api-key': this.configService.config.apiKey
       });
     if (this.client.loggedIn) {
-      headers.append('sessionid', this.client.sessionId);
+      headers.append('x-session-id', this.client.sessionId);
     }
     return headers;
   }
@@ -38,9 +36,9 @@ export class AuthenticationService {
       }, { headers: this.headers })
       .toPromise()
       .then(response => {
-        this.modifyClient({sessionId : response.headers.get('sessionid')});
-        this.headers.set('Access-Control-Expose-Headers', ['sessionid']);
-        this.headers.set('sessionid', this.client.sessionId);
+        this.modifyClient({sessionId : response.headers.get('x-session-id')});
+        this.headers.set('Access-Control-Expose-Headers', ['x-session-id']);
+        this.headers.set('x-session-id', this.client.sessionId);
         this.http.get(this.configService.getFullUrl() + 'api/authorization/', { headers: this.headers })
         .toPromise()
         .then(res => {
@@ -49,7 +47,7 @@ export class AuthenticationService {
         })
 
       })
-      .catch(this.handleError);
+      .catch(AuthenticationService.handleError);
   }
 
   logout(): Promise<any> {
@@ -61,7 +59,7 @@ export class AuthenticationService {
     })
     .catch(error => {
       this.deleteClient();
-      return this.handleError(error);
+      return AuthenticationService.handleError(error);
     })
   }
 
@@ -84,7 +82,7 @@ export class AuthenticationService {
     localStorage.removeItem('currentClient');
   }
 
-  private handleError(error: any): Promise<any> {
+  private static handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
