@@ -30,7 +30,12 @@ export class ErrorService {
       this.router.navigate(['/login']);
       return Promise.reject('The service appears to be down. Please contact the developers.');
     }
-    const errors = error.json();
+    let errors;
+    try {
+      errors = error.json();
+    } catch (e) {
+      errors = error._body;
+    }
     if (error && error.statusText === 'Forbidden') {
       this.addErrors(errors);
       this.authenticationService.deleteClient();

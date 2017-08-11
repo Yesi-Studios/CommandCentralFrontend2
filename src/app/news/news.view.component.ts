@@ -1,9 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
-import { NewsItem } from './news-item';
 import { LinkItem } from '../navigation/link-item';
-
-import { NewsService } from './news.service'
 
 @Component({
   // tslint:disable-next-line:component-selector

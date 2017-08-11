@@ -10,6 +10,8 @@ import { NewsViewComponent } from './news/news.view.component';
 
 import { NewsComponent } from './news/news.component';
 import { NewsCreateComponent } from './news/news-create.component';
+import {ProfileViewComponent} from './profile/profile.view.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginViewComponent },
@@ -20,7 +22,11 @@ const routes: Routes = [
       { path: 'create', component: NewsCreateComponent, canActivate: [AuthGuard]},
       { path: 'edit/:id', component: NewsEditComponent, canActivate: [AuthGuard]}
     ]
-  }
+  },
+  { path: 'sailors', component: ProfileViewComponent, canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ProfileComponent, canActivate: [AuthGuard]}
+    ]}
 ];
 
 @NgModule({

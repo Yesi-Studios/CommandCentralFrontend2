@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ConfigService } from './config.service';
+import {ProfileModule} from './profile/profile.module';
 
 export function configFactory (config: ConfigService) {
   return () => config.load();
@@ -29,7 +30,8 @@ export function configFactory (config: ConfigService) {
     AppRoutingModule,
     AuthenticationModule,
     NewsModule,
-    NavigationModule
+    NavigationModule,
+    ProfileModule
   ],
   providers: [
     ConfigService,
