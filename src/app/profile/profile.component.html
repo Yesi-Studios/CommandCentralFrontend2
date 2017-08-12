@@ -1,5 +1,7 @@
-<div class="col-sm-8">
+<div *ngIf="!person" class="col-sm-8 text-center">Loading...</div>
+<div *ngIf="person" class="col-sm-8">
   <h3>{{person.getFriendlyName()}}'s Profile</h3>
+  <h5>Click the sections to expand and collapse them</h5>
   <!--<h4>{{person.dateOfBirth | date: 'medium'}}</h4>-->
   <!--<p *ngFor="let x of person.toString().split('|||')">{{x}}</p>-->
   <div class="panel-group text-left" role="tablist" id="accordion" aria-multiselectable="true">
@@ -7,33 +9,50 @@
       <div class="panel-heading" role="tab" id="headingOne">
         <h3 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-             aria-expanded="false" aria-controls="collapseOne">
-            Personal Data (click to expand)
+             aria-expanded="false" aria-controls="collapseOne" (click)="collapseOne = !collapseOne">
+            <span class="glyphicon" [ngClass]="{'glyphicon-chevron-down': !collapseOne, 'glyphicon-chevron-right': collapseOne}"></span>
+            Personal Data
           </a>
         </h3>
       </div>
-      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          <table class="table">
-            <colgroup>
-              <col width="50%">
-              <col width="50%">
-            </colgroup>
-            <tbody>
-            <tr>
-              <td>First Name:</td>
-              <td>{{person.firstName}}</td>
-            </tr>
-            <tr>
-              <td>Middle Name:</td>
-              <td>{{person.middleName}}</td>
-            </tr>
-            <tr>
-              <td>Middle Name:</td>
-              <td>{{person.lastName}}</td>
-            </tr>
-            </tbody>
-          </table>
+          <div class="col-md-6">
+            <table class="table">
+              <colgroup>
+                <col width="40%">
+                <col width="60%">
+              </colgroup>
+              <tbody>
+              <tr>
+                <td>First Name:</td>
+                <td>{{person.firstName}}</td>
+              </tr>
+              <tr>
+                <td>Middle Name:</td>
+                <td>{{person.middleName}}</td>
+              </tr>
+              <tr>
+                <td>Middle Name:</td>
+                <td>{{person.lastName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table">
+              <colgroup>
+                <col width="40%">
+                <col width="60%">
+              </colgroup>
+              <tbody>
+              <tr>
+                <td>test</td>
+                <td>tester</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

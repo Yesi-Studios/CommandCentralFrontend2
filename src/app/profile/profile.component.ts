@@ -12,6 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class ProfileComponent implements OnInit {
   person: Person;
   errorMessages: string[];
+  collapseOne = false;
 
   constructor(
     private profileService: ProfileService,
