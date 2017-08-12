@@ -68,4 +68,17 @@ export class Person {
     this.division = dto.division;
   }
 
+  getFriendlyName(): string {
+    return this.lastName + ', ' + this.firstName;
+  }
+
+  toString(): string {
+    let result = '';
+    for (const x in this) {
+      if (this.hasOwnProperty(x)) {
+        result += x + ' : ' + this[x] + '|||';
+      }
+    }
+    return result;
+  }
 }
