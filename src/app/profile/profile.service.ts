@@ -11,7 +11,7 @@ import {ReferenceListDTO} from './dtos/reference-list-dto';
 
 @Injectable()
 export class ProfileService {
-  referenceLists: ReferenceLists;
+  private referenceLists: ReferenceLists;
   constructor(
     private http: Http,
     private configService: ConfigService,
