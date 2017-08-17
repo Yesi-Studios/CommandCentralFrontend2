@@ -25,7 +25,7 @@ export class NewsService {
 
   getAllNews(): Promise<NewsItem[]> {
     console.log(this.authenticationService.getHeaders());
-    return this.http.get(this.configService.getFullUrl() + 'api/newsitem', { headers: this.authenticationService.getHeaders() })
+    return this.http.get(this.configService.getFullUrl() + 'api/newsitems', { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
         const dto = response.json() as NewsItemDTO[];
@@ -38,7 +38,7 @@ export class NewsService {
     const data = {
       'newsitemid': id
     };
-    return this.http.get(this.configService.getFullUrl() + 'api/newsitem/' + id, { headers: this.authenticationService.getHeaders() })
+    return this.http.get(this.configService.getFullUrl() + 'api/newsitems/' + id, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
         const dto = response.json() as NewsItemDTO;
@@ -52,7 +52,7 @@ export class NewsService {
       'body': dto.body,
       'title': dto.title
     };
-    return this.http.patch(this.configService.getFullUrl() + 'api/newsitem/' + dto.id, data,
+    return this.http.patch(this.configService.getFullUrl() + 'api/newsitems/' + dto.id, data,
       { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => response.json().ReturnValue)
@@ -64,7 +64,7 @@ export class NewsService {
       'title': dto.title,
       'body': dto.body,
     };
-    return this.http.post(this.configService.getFullUrl() + 'api/newsitem', data, { headers: this.authenticationService.getHeaders() })
+    return this.http.post(this.configService.getFullUrl() + 'api/newsitems', data, { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => response.json().ReturnValue)
       .catch(error => this.errorService.handleError(error));
