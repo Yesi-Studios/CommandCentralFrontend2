@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 import {Person} from './models/person';
 import {ConfigService} from '../config.service';
@@ -8,6 +8,12 @@ import {ErrorService} from '../errors/error.service';
 import {LoadPersonDTO} from './dtos/load-person-dto';
 import {ReferenceLists} from './models/referencelists';
 import {ReferenceListDTO} from './dtos/reference-list-dto';
+import {PhoneNumber} from './models/phonenumber';
+import {PhoneNumberDTO} from './dtos/phone-number-dto';
+import {EmailAddress} from './models/emailaddress';
+import {EmailAddressDTO} from './dtos/email-address-dto';
+import {PhysicalAddressDTO} from './dtos/physical-address-dto';
+import {PhysicalAddress} from './models/physicaladdress';
 
 @Injectable()
 export class ProfileService {
@@ -57,7 +63,39 @@ export class ProfileService {
       .catch(error => this.errorService.handleError(error));
   }
 
-  /*getPhoneNumbersForPerson(id: string): Promise<PhoneNumber[]> {
+  getPhoneNumbersForPerson(id: string): Promise<PhoneNumber[]> {
+    return this.http.get(
+      this.configService.getFullUrl() + 'api/Persons/' + id + '/PhoneNumbers',
+      {headers: this.authenticationService.getHeaders()})
+      .toPromise()
+      .then(response => {
+        const dto = response.json() as PhoneNumberDTO[];
+        return dto.map(d => new PhoneNumber(d));
+      })
+      .catch(error => this.errorService.handleError(error));
+  }
 
-  }*/
+  getEmailsForPerson(id: string): Promise<EmailAddress[]> {
+    return this.http.get(
+      this.configService.getFullUrl() + 'api/Persons/' + id + '/EmailAddresses',
+      {headers: this.authenticationService.getHeaders()})
+      .toPromise()
+      .then(response => {
+        const dto = response.json() as EmailAddressDTO[];
+        return dto.map(d => new EmailAddress(d));
+      })
+      .catch(error => this.errorService.handleError(error));
+  }
+
+  getAddressesForPerson(id: string): Promise<PhysicalAddress[]> {
+    return this.http.get(
+      this.configService.getFullUrl() + 'api/Persons/' + id + '/PhysicalAddresses',
+      {headers: this.authenticationService.getHeaders()})
+      .toPromise()
+      .then(response => {
+        const dto = response.json() as PhysicalAddressDTO[];
+        return dto.map(d => new PhysicalAddress(d));
+      })
+      .catch(error => this.errorService.handleError(error));
+  }
 }
