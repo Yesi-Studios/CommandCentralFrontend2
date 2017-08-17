@@ -10,9 +10,11 @@ import {NavigationModule} from '../navigation/navigation.module';
 import {ErrorsModule} from '../errors/errors.module';
 import {AuthenticationModule} from '../authentication/authentication.module';
 import {ProfileComponent} from './profile.component';
+import { EmailComponent } from './components/email.component';
+import { EmailListComponent } from './components/email-list.component';
 
 @NgModule({
-  declarations: [ProfileViewComponent, ProfileComponent],
+  declarations: [ProfileViewComponent, ProfileComponent, EmailComponent, EmailListComponent],
   providers: [ProfileService],
   imports: [
     HttpModule,

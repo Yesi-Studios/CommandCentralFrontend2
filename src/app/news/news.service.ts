@@ -24,7 +24,6 @@ export class NewsService {
     private errorService: ErrorService) { }
 
   getAllNews(): Promise<NewsItem[]> {
-    console.log(this.authenticationService.getHeaders());
     return this.http.get(this.configService.getFullUrl() + 'api/newsitems', { headers: this.authenticationService.getHeaders() })
       .toPromise()
       .then(response => {
