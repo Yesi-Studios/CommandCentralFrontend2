@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EmailAddress} from '../models/emailaddress';
+import {EmailAddress} from '../../models/emailaddress';
 
 @Component({
   selector: 'cc-email',

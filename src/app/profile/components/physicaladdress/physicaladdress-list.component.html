@@ -1,0 +1,5 @@
+<h5>Physical Address list component</h5>
+<cc-physicaladdress *ngFor="let address of addresses; let i = index" [(address)]="addresses[i]">
+
+</cc-physicaladdress>
+<h6 *ngIf="addresses.length == 0">No addresses to show.</h6>

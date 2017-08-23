@@ -1,0 +1,5 @@
+<h5>Phone Number list component</h5>
+<cc-phonenumber *ngFor="let phoneNumber of phoneNumbers; let i = index" [(phoneNumber)]="phoneNumbers[i]">
+
+</cc-phonenumber>
+<h6 *ngIf="phoneNumbers.length == 0">No phone numbers to show.</h6>

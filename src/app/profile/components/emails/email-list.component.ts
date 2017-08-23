@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProfileService} from '../profile.service';
-import {EmailAddress} from '../models/emailaddress';
+import {ProfileService} from '../../profile.service';
+import {EmailAddress} from '../../models/emailaddress';
 
 @Component({
   selector: 'cc-email-list',

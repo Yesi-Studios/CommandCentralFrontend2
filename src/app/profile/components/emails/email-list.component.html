@@ -1,3 +1,5 @@
+<h5>Email list component</h5>
 <cc-email *ngFor="let email of emails; let i = index" [(email)]="emails[i]">
 
 </cc-email>
+<h6 *ngIf="emails.length == 0">No emails to show.</h6>

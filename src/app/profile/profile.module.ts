@@ -10,11 +10,24 @@ import {NavigationModule} from '../navigation/navigation.module';
 import {ErrorsModule} from '../errors/errors.module';
 import {AuthenticationModule} from '../authentication/authentication.module';
 import {ProfileComponent} from './profile.component';
-import { EmailComponent } from './components/email.component';
-import { EmailListComponent } from './components/email-list.component';
+import { EmailComponent } from './components/emails/email.component';
+import { EmailListComponent } from './components/emails/email-list.component';
+import { PhonenumberComponent } from './components/phonenumber/phonenumber.component';
+import { PhonenumberListComponent } from './components/phonenumber/phonenumber-list.component';
+import { PhysicaladdressComponent } from './components/physicaladdress/physicaladdress.component';
+import { PhysicaladdressListComponent } from './components/physicaladdress/physicaladdress-list.component';
 
 @NgModule({
-  declarations: [ProfileViewComponent, ProfileComponent, EmailComponent, EmailListComponent],
+  declarations: [
+    ProfileViewComponent,
+    ProfileComponent,
+    EmailComponent,
+    EmailListComponent,
+    PhonenumberComponent,
+    PhonenumberListComponent,
+    PhysicaladdressComponent,
+    PhysicaladdressListComponent
+  ],
   providers: [ProfileService],
   imports: [
     HttpModule,
