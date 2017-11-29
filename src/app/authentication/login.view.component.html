@@ -4,16 +4,8 @@
       <div *ngFor="let errorMessage of errorMessages" class="alert alert-danger">
         {{errorMessage}}
       </div>
-      <div *ngIf="!userIsLoggedIn(); else loggedIn" class="panel panel-default text-left">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input [(ngModel)]="username" id="username" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input [(ngModel)]="password" (keyup)="enterKeyCheck($event)" type="password" id="username" class="form-control" />
-        </div>
-        <button (click)="login()" [disabled]="readyToLogin()" class="btn btn-primary">Log In</button>
+      <div *ngIf="!userIsLoggedIn(); else loggedIn" class="panel panel-default text-center">
+        <button (click)="login()" class="btn btn-primary">Log In with CAC</button>
       </div>
       <ng-template #loggedIn>
         <h3>You are logged in.</h3>

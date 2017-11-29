@@ -1,6 +1,6 @@
 import { ResolvedPermissionsDTO } from './resolved-permissions-dto';
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 
 
 import { ConfigService } from '../config.service';
@@ -13,14 +13,19 @@ export class AuthenticationService {
   headers = new Headers({ 'Content-Type': 'application/json' });
   client: Client = new Client();
 
+  private static handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
+  }
+
   constructor(private http: Http, private configService: ConfigService) {
-    this.headers.append('x-api-key', this.configService.config.apiKey);
+    this.headers.append('x-api-key', this.configService.getConfig('apiKey'));
   }
 
   getHeaders(): Headers {
     const headers: Headers = new Headers({
         'Content-Type': 'application/json',
-        'x-api-key': this.configService.config.apiKey
+        'x-api-key': this.configService.getConfig('apiKey')
       });
     if (this.client.loggedIn) {
       headers.append('x-session-id', this.client.sessionId);
@@ -28,25 +33,13 @@ export class AuthenticationService {
     return headers;
   }
 
-  login(username: string, password: string): Promise<any> {
-    return this.http.post(this.configService.getFullUrl() + 'api/authentication',
-      {
-        'username': username,
-        'password': password
-      }, { headers: this.headers })
-      .toPromise()
-      .then(response => {
-        this.modifyClient({sessionId : response.headers.get('x-session-id')});
-        this.headers.set('Access-Control-Expose-Headers', ['x-session-id']);
-        this.headers.set('x-session-id', this.client.sessionId);
-        this.http.get(this.configService.getFullUrl() + 'api/authorization/', { headers: this.headers })
+  login(): Promise<any> {
+    return this.http.get(this.configService.getFullUrl() + 'api/Permissions/', { headers: this.headers })
         .toPromise()
         .then(res => {
           console.log(res.json());
           this.modifyClient({loggedIn: true, resolvedPermissions: res.json() as ResolvedPermissionsDTO});
         })
-
-      })
       .catch(AuthenticationService.handleError);
   }
 
@@ -80,11 +73,6 @@ export class AuthenticationService {
     this.client = new Client();
     this.headers.delete('sessionid');
     localStorage.removeItem('currentClient');
-  }
-
-  private static handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
   }
 
 }

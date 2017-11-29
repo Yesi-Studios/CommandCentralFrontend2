@@ -1,5 +1,5 @@
 import { ErrorService } from '../errors/error.service';
-import { Component, Input, AfterContentInit} from '@angular/core'
+import { Component, AfterContentInit} from '@angular/core'
 
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
   templateUrl: './login.view.component.html'
 })
 export class LoginViewComponent implements AfterContentInit {
-  @Input() username: string;
-  @Input() password: string;
   errorMessages: string[] = [];
 
   private static handleErrors(res: any): Array<string> {
@@ -35,14 +33,13 @@ export class LoginViewComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     const newErrors = this.errorService.popAllErrors();
-
     this.errorMessages = this.errorMessages.concat(newErrors);
   }
 
   login(): void {
     this.errorMessages = [];
     this.authenticationService
-    .login(this.username, this.password)
+    .login()
     .then(response => this.handleLogin())
     .catch(response => this.errorMessages = LoginViewComponent.handleErrors(response));
   }
@@ -52,16 +49,6 @@ export class LoginViewComponent implements AfterContentInit {
     this.authenticationService
     .logout()
     .catch(response => this.errorMessages = LoginViewComponent.handleErrors(response));
-  }
-
-  enterKeyCheck(event: any): void {
-    if (event.key === 'Enter') {
-      this.login();
-    }
-  }
-
-  readyToLogin(): boolean {
-    return !this.username || !this.password;
   }
 
   handleLogin(): void {
