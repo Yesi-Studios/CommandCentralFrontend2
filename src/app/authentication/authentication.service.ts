@@ -11,6 +11,7 @@ import { Client } from './client';
 export class AuthenticationService {
 
   headers = new Headers({ 'Content-Type': 'application/json' });
+  impersonateID = '';
   client: Client = new Client();
 
   private static handleError(error: any): Promise<any> {
@@ -30,11 +31,14 @@ export class AuthenticationService {
     if (this.client.loggedIn) {
       headers.append('x-session-id', this.client.sessionId);
     }
+    if (this.impersonateID !== '') {
+      headers.append('x-impersonate-person-id', this.impersonateID)
+    }
     return headers;
   }
 
   login(): Promise<any> {
-    return this.http.get(this.configService.getFullUrl() + 'api/Permissions/', { headers: this.headers })
+    return this.http.get(this.configService.getFullUrl() + 'api/Permissions/', { headers: this.getHeaders() })
         .toPromise()
         .then(res => {
           console.log(res.json());
@@ -44,16 +48,19 @@ export class AuthenticationService {
   }
 
   logout(): Promise<any> {
-    return this.http.delete(this.configService.getFullUrl() + 'api/authentication',
-     {headers: this.headers })
-    .toPromise()
-    .then(response => {
-      this.deleteClient();
-    })
-    .catch(error => {
-      this.deleteClient();
-      return AuthenticationService.handleError(error);
-    })
+    this.impersonateID = '';
+    this.deleteClient();
+    return new Promise((resolve, reject) => {console.log('Logged out')});
+    // return this.http.delete(this.configService.getFullUrl() + 'api/authentication',
+    //  {headers: this.headers })
+    // .toPromise()
+    // .then(response => {
+    //   this.deleteClient();
+    // })
+    // .catch(error => {
+    //   this.deleteClient();
+    //   return AuthenticationService.handleError(error);
+    // })
   }
 
   saveClient() {

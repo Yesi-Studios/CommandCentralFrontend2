@@ -1,14 +1,18 @@
 import { ErrorService } from '../errors/error.service';
-import { Component, AfterContentInit} from '@angular/core'
+import {Component, AfterContentInit, Input} from '@angular/core'
 
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
+import {ConfigService} from '../config.service';
 
 @Component({
   selector: 'cc-login-component',
   templateUrl: './login.view.component.html'
 })
 export class LoginViewComponent implements AfterContentInit {
+  @Input() impersonateMode: boolean;
+  @Input() impersonateID: string;
+  debugMode: string;
   errorMessages: string[] = [];
 
   private static handleErrors(res: any): Array<string> {
@@ -28,15 +32,20 @@ export class LoginViewComponent implements AfterContentInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private configService: ConfigService
   ) {}
 
   ngAfterContentInit() {
     const newErrors = this.errorService.popAllErrors();
     this.errorMessages = this.errorMessages.concat(newErrors);
+    this.debugMode = this.configService.getConfig('debugMode')
   }
 
   login(): void {
+    if (this.debugMode && this.impersonateMode) {
+      this.authenticationService.impersonateID = this.impersonateID;
+    }
     this.errorMessages = [];
     this.authenticationService
     .login()

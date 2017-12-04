@@ -6,6 +6,12 @@
       </div>
       <div *ngIf="!userIsLoggedIn(); else loggedIn" class="panel panel-default text-center">
         <button (click)="login()" class="btn btn-primary">Log In with CAC</button>
+        <div *ngIf="debugMode">
+          <label for="impersonate">Impersonate</label>
+          <input id="impersonate" [(ngModel)]="impersonateMode" type="checkbox" />
+          <label for="impersonateID">Impersonate ID</label>
+          <input id="impersonateID" type="text" [(ngModel)]="impersonateID" />
+        </div>
       </div>
       <ng-template #loggedIn>
         <h3>You are logged in.</h3>
