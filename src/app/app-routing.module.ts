@@ -12,6 +12,7 @@ import { NewsComponent } from './news/news.component';
 import { NewsCreateComponent } from './news/news-create.component';
 import {ProfileViewComponent} from './profile/profile.view.component';
 import {ProfileComponent} from './profile/profile.component';
+import {SearchComponent} from './profile/search/search.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginViewComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   },
   { path: 'sailors', component: ProfileViewComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', component: ProfileComponent, canActivate: [AuthGuard]}
+      { path: '', component: ProfileComponent, canActivate: [AuthGuard]},
+      { path: 'search', component: SearchComponent, canActivate: [AuthGuard]}
     ]}
 ];
 

@@ -5,7 +5,7 @@
         {{errorMessage}}
       </div>
       <div *ngIf="!userIsLoggedIn(); else loggedIn" class="panel panel-default text-center">
-        <button (click)="login()" class="btn btn-primary">Log In with CAC</button>
+        <button (click)="login()" class="btn btn-primary">Continue to Command Central</button>
         <div *ngIf="debugMode">
           <label for="impersonate">Impersonate</label>
           <input id="impersonate" [(ngModel)]="impersonateMode" type="checkbox" />

@@ -16,6 +16,7 @@ import { PhonenumberComponent } from './components/phonenumber/phonenumber.compo
 import { PhonenumberListComponent } from './components/phonenumber/phonenumber-list.component';
 import { PhysicaladdressComponent } from './components/physicaladdress/physicaladdress.component';
 import { PhysicaladdressListComponent } from './components/physicaladdress/physicaladdress-list.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PhysicaladdressListComponent } from './components/physicaladdress/physi
     PhonenumberComponent,
     PhonenumberListComponent,
     PhysicaladdressComponent,
-    PhysicaladdressListComponent
+    PhysicaladdressListComponent,
+    SearchComponent
   ],
   providers: [ProfileService],
   imports: [

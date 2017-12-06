@@ -11,7 +11,7 @@ import {ConfigService} from '../config.service';
 })
 export class LoginViewComponent implements AfterContentInit {
   @Input() impersonateMode: boolean;
-  @Input() impersonateID: string;
+  @Input() impersonateID = 'b2db659d-4998-40a2-8962-e6eb05326ea5';
   debugMode: string;
   errorMessages: string[] = [];
 

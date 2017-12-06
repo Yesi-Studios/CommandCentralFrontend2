@@ -11,6 +11,9 @@ export class ProfileViewComponent {
     {
       text: 'My Profile',
       url: '/sailors/'
+    },
+    { text: 'Search Profiles',
+      url: '/sailors/search'
     }
   ]
 }
