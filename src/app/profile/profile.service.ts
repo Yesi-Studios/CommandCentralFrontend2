@@ -35,7 +35,8 @@ export class ProfileService {
         const dto = response.json() as LoadPersonDTO;
         return new Person(dto);
       })
-      .catch( error => this.errorService.handleError(error));})
+      .catch( error => this.errorService.handleError(error));
+    })
   }
 
   getMyProfile(): Promise<Person> {
@@ -95,6 +96,24 @@ export class ProfileService {
       .then(response => {
         const dto = response.json() as PhysicalAddressDTO[];
         return dto.map(d => new PhysicalAddress(d));
+      })
+      .catch(error => this.errorService.handleError(error));
+  }
+
+  simpleSearch(text): Promise<Person[]> {
+    const simpleValues = ['firstName'];
+    const params = new URLSearchParams();
+    for (const val of simpleValues) {
+      params.set(val, text);
+    }
+    const url = this.configService.getFullUrl() + 'api/Persons/?' + params.toString();
+    return this.http.get(
+      url,
+      {headers: this.authenticationService.getHeaders()})
+      .toPromise()
+      .then(response => {
+        const dto = response.json() as LoadPersonDTO[];
+        return dto.map(d => new Person(d));
       })
       .catch(error => this.errorService.handleError(error));
   }

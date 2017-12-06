@@ -1,3 +1,8 @@
-<p>
-  search works!
-</p>
+<div>
+  <label for="searchText">Simple Search</label><br/>
+  <input id="searchText" [(ngModel)]="searchText" type="text" /><br/>
+  <button (click)="search(searchText)">search</button>
+</div>
+<div *ngIf="searchResults">
+  <div *ngFor="let result of searchResults">{{result.firstName}}</div>
+</div>
