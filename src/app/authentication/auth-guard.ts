@@ -6,8 +6,8 @@ import { AuthenticationService } from './authentication.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   restrictedPaths: { [path: string]: string[] } = {
-    '/news/create': ['Developers'],
-    '/news/edit': ['Developers']
+    '/news/create': ['EditNews'],
+    '/news/edit': ['EditNews']
   };
 
   constructor(
@@ -25,10 +25,10 @@ export class AuthGuard implements CanActivate {
   }
 
   userHasPermissionsToAccess(url: string): boolean {
-    const permGroups = this.authenticationService.client.resolvedPermissions.permissionGroupNames as Array<string>;
+    const accessibleSubmodules = this.authenticationService.client.resolvedPermissions.accessibleSubmodules as Array<string>;
     const requiredPerms = this.restrictedPaths[url];
     if (requiredPerms) {
-      const permsComp = requiredPerms.filter(item => permGroups.indexOf(item) !== -1);
+      const permsComp = requiredPerms.filter(item => accessibleSubmodules.indexOf(item) !== -1);
       return permsComp.length !== 0
     }
     return true;

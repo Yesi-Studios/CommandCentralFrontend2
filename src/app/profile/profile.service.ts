@@ -101,12 +101,10 @@ export class ProfileService {
   }
 
   simpleSearch(text): Promise<Person[]> {
-    const simpleValues = ['firstName'];
     const params = new URLSearchParams();
-    for (const val of simpleValues) {
-      params.set(val, text);
-    }
-    const url = this.configService.getFullUrl() + 'api/Persons/?' + params.toString();
+    params.set('searchValue', text);
+    params.set('limit', '10');
+    const url = this.configService.getFullUrl() + 'api/Persons/simple?' + params.toString();
     return this.http.get(
       url,
       {headers: this.authenticationService.getHeaders()})
