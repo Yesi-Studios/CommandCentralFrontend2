@@ -1,9 +1,8 @@
 <label for="advancedSearch">Advanced Search</label>
 <input id="advancedSearch" [(ngModel)]="advancedSearch" type="checkbox">
 <div *ngIf="advancedSearch">
-  <cc-search-field [fieldName]="'eaos'" [field]="'12'"></cc-search-field>
-  <cc-search-field [fieldName]="'sex'" [field]="'12'"></cc-search-field>
-  <cc-search-field [fieldName]="'lastName'" [field]="'12'"></cc-search-field>
+  <ss-multiselect-dropdown [options]="fields" [(ngModel)]="selectedOptions" (ngModelChange)="onOptionsChange($event)"></ss-multiselect-dropdown>
+  <cc-search-field [fieldId]="12" [field]="'12'"></cc-search-field>
 </div>
 <div *ngIf="!advancedSearch">
   <label for="searchText">Simple Search</label><br/>

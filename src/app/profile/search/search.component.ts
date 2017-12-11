@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Person} from '../models/person';
 import {ProfileService} from '../profile.service';
+import {fields} from '../fields'
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-search',
@@ -13,10 +15,13 @@ export class SearchComponent implements OnInit {
   searchResults: Person[];
   errorMessages: string[];
   advancedSearch: boolean;
+  selectedOptions: number[];
+  fields: IMultiSelectOption[];
 
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.fields = fields as IMultiSelectOption[];
   }
 
   search(text) {
@@ -24,6 +29,10 @@ export class SearchComponent implements OnInit {
     this.profileService.simpleSearch(text.split(' ').join('|'))
       .then(response => this.searchResults = response)
       .catch(errs => this.errorMessages = this.errorMessages.concat(errs));
+  }
+
+  onOptionsChange() {
+    console.log(this.selectedOptions);
   }
 
 }

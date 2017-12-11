@@ -10,13 +10,18 @@ import { fields } from '../../fields';
 export class SearchFieldComponent implements OnInit {
 
   @Input() field;
-  @Input() fieldName;
+  @Input() fieldId;
 
-  fieldTypes = fields;
+  fieldTypes: object;
 
   constructor() { }
 
   ngOnInit() {
+    this.fieldTypes = fields.reduce((map, obj) => {
+      map[obj['id']] = {type: obj['type'], name: obj['name']};
+      return map;
+    });
+    console.log(this.fieldTypes);
   }
 
 }
