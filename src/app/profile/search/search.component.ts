@@ -12,6 +12,7 @@ export class SearchComponent implements OnInit {
   @Input() searchText: string;
   searchResults: Person[];
   errorMessages: string[];
+  advancedSearch: boolean;
 
   constructor(private profileService: ProfileService) { }
 

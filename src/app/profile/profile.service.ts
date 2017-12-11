@@ -103,7 +103,7 @@ export class ProfileService {
   simpleSearch(text): Promise<Person[]> {
     const params = new URLSearchParams();
     params.set('searchValue', text);
-    params.set('limit', '10');
+    // params.set('limit', '10');
     const url = this.configService.getFullUrl() + 'api/Persons/simple?' + params.toString();
     return this.http.get(
       url,

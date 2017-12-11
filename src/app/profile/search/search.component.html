@@ -1,4 +1,11 @@
-<div>
+<label for="advancedSearch">Advanced Search</label>
+<input id="advancedSearch" [(ngModel)]="advancedSearch" type="checkbox">
+<div *ngIf="advancedSearch">
+  <cc-search-field [fieldName]="'eaos'" [field]="'12'"></cc-search-field>
+  <cc-search-field [fieldName]="'sex'" [field]="'12'"></cc-search-field>
+  <cc-search-field [fieldName]="'lastName'" [field]="'12'"></cc-search-field>
+</div>
+<div *ngIf="!advancedSearch">
   <label for="searchText">Simple Search</label><br/>
   <input id="searchText" [(ngModel)]="searchText" type="text" /><br/>
   <button (click)="search(searchText)">search</button>

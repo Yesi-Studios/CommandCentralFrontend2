@@ -1,0 +1,7 @@
+field name: {{fieldName}}
+field type: {{fieldTypes[fieldName]}}
+<div [ngSwitch]="fieldTypes[fieldName]">
+  <div *ngSwitchCase="'date'">Date input here</div>
+  <div *ngSwitchCase="'sex'">Sex input here</div>
+  <div *ngSwitchDefault>Text input here</div>
+</div>
