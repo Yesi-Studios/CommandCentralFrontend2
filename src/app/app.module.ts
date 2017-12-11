@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ConfigService } from './config.service';
 import {ProfileModule} from './profile/profile.module';
-import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 
 export function configFactory (config: ConfigService) {
   return () => config.load();

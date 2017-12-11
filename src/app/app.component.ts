@@ -14,9 +14,10 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    const savedClient = JSON.parse(localStorage.getItem('currentClient'));
-    if (savedClient) {
-      this.authService.modifyClient(savedClient);
-    }
+    // This is no longer necessary because we want the user to have to re login if the page is reloaded.
+    // const savedClient = JSON.parse(localStorage.getItem('currentClient'));
+    // if (savedClient) {
+    //  this.authService.modifyClient(savedClient);
+    // }
   }
 }

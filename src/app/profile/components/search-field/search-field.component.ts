@@ -14,6 +14,7 @@ export class SearchFieldComponent implements OnInit {
 
   fieldTypes: object;
 
+
   constructor() { }
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class SearchFieldComponent implements OnInit {
     fields.forEach((obj, i) => {
       this.fieldTypes[obj['id']] = {type: obj['type'], name: obj['name']};
     });
-    console.log(this.fieldTypes);
+    this.field = {};
   }
 
 }

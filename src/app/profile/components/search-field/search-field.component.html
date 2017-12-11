@@ -1,8 +1,10 @@
-field name: {{fieldTypes[fieldId]['name']}}
-field id: {{fieldId}}
-field type: {{fieldTypes[fieldId]['type']}}
 <div [ngSwitch]="fieldTypes[fieldId]['type']">
-  <div *ngSwitchCase="'date'">Date input here</div>
+  <div *ngSwitchCase="'date'">
+    <label for="from">From:</label>
+    <input type="text" id="from" [(ngModel)]="field['from']">
+    <label for="to">To:</label>
+    <input type="text" id="to" [(ngModel)]="field['to']">
+  </div>
   <div *ngSwitchCase="'sex'">Sex input here</div>
   <div *ngSwitchDefault>Text input here</div>
 </div>

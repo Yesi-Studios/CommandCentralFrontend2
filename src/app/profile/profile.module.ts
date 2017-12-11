@@ -18,7 +18,7 @@ import { PhysicaladdressComponent } from './components/physicaladdress/physicala
 import { PhysicaladdressListComponent } from './components/physicaladdress/physicaladdress-list.component';
 import { SearchComponent } from './search/search.component';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
-import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 @NgModule({
   declarations: [
