@@ -17,9 +17,9 @@ export class SearchFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.fieldTypes = fields.reduce((map, obj) => {
-      map[obj['id']] = {type: obj['type'], name: obj['name']};
-      return map;
+    this.fieldTypes = {};
+    fields.forEach((obj, i) => {
+      this.fieldTypes[obj['id']] = {type: obj['type'], name: obj['name']};
     });
     console.log(this.fieldTypes);
   }

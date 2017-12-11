@@ -17,11 +17,13 @@ export class SearchComponent implements OnInit {
   advancedSearch: boolean;
   selectedOptions: number[];
   fields: IMultiSelectOption[];
+  advancedSearchData: object;
 
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
     this.fields = fields as IMultiSelectOption[];
+    this.advancedSearchData = {};
   }
 
   search(text) {

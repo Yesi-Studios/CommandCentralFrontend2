@@ -1,8 +1,8 @@
 <label for="advancedSearch">Advanced Search</label>
 <input id="advancedSearch" [(ngModel)]="advancedSearch" type="checkbox">
 <div *ngIf="advancedSearch">
+  <cc-search-field *ngFor="let i of selectedOptions" [fieldId]="i" [field]="advancedSearchData[i]"></cc-search-field>
   <ss-multiselect-dropdown [options]="fields" [(ngModel)]="selectedOptions" (ngModelChange)="onOptionsChange($event)"></ss-multiselect-dropdown>
-  <cc-search-field [fieldId]="12" [field]="'12'"></cc-search-field>
 </div>
 <div *ngIf="!advancedSearch">
   <label for="searchText">Simple Search</label><br/>
