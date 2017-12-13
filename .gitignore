@@ -4,6 +4,10 @@
 /src/config.json
 /src/assets/config.json
 /.vscode
+server.crt
+server.csr
+server.key
+server.key.org
 
 # compiled output
 /dist
