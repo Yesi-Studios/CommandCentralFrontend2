@@ -5,6 +5,13 @@
     <label for="to">To:</label>
     <input type="text" id="to" [(ngModel)]="field['to']">
   </div>
-  <div *ngSwitchCase="'sex'">Sex input here</div>
-  <div *ngSwitchDefault>Text input here</div>
+  <div *ngSwitchCase="'sex'">Sex:
+    <label class="radio-inline"><input type="radio" name="Male" [(ngModel)]="field" value="Male">Male</label>
+    <label class="radio-inline"><input type="radio" name="Female"[(ngModel)]="field" value="Female">Female</label>
+  </div>
+  <div *ngSwitchDefault>
+    <label for="field">{{fieldTypes[fieldId]['name']}}</label>
+    <input type="text" id="field" [(ngModel)]="field">
+    {{field}}
+  </div>
 </div>

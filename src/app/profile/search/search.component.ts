@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.fields = fields as IMultiSelectOption[];
-    this.advancedSearchData = {};
+    this.advancedSearchData = [];
   }
 
   search(text) {
@@ -37,4 +37,7 @@ export class SearchComponent implements OnInit {
     console.log(this.selectedOptions);
   }
 
+  searchAdvanced() {
+    console.log(this.advancedSearchData);
+  }
 }

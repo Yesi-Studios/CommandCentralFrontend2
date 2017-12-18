@@ -25,4 +25,13 @@ export class SearchFieldComponent implements OnInit {
     this.field = {};
   }
 
+  getQueryStringSegment() {
+    const fieldData = this.fieldTypes[this.fieldId];
+    if (fieldData['type'] === 'date') {
+      return fieldData['name'] + '=' + this.field['from'] + ',' + this.field['to'];
+    } else {
+      return this.field
+    }
+  }
+
 }
