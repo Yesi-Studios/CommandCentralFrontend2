@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
@@ -29,7 +30,7 @@ export class ConfigService {
         .catch( (error) => {
           console.log('"config.json" not found. Using the following values:');
           console.log(this.config);
-          return Observable.throw(error.json().error || 'Server error');
+          return Observable.throw(error || 'Server error');
         })
         .subscribe(responseData => {
           this.config = responseData;
