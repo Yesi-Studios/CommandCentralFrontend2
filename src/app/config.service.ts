@@ -28,6 +28,7 @@ export class ConfigService {
       this.http.get('assets/config.json')
         .map(res => res.json())
         .catch( (error) => {
+          this.config = this.defaultValues;
           console.log('"config.json" not found. Using the following values:');
           console.log(this.config);
           return Observable.throw(error || 'Server error');
